@@ -1,0 +1,14 @@
+---
+create_containers: 1
+default_container_name: rancher
+default_container_image: rancher/rancher:v2.9.3
+exposed_ports:
+ - "443"
+ - "80"
+ports:
+ - "443:443"
+ - "80:80"
+env_list: "CATTLE_BOOTSTRAP_PASSWORD=password1234"
+restart_policy: unless-stopped
+privileged: yes
+rancher: true
