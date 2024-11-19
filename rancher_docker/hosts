@@ -1,0 +1,22 @@
+[ubuntu_servers]
+ubuntu-rancher ansible_host=127.0.0.1 ubuntu_version=jammy
+focal-rancher ansible_host=127.0.0.1 ubuntu_version=focal
+
+[ubuntu_servers:vars]
+USER=ubuntu
+DISTRO=ubuntu
+ansible_user=ubuntu
+
+[opensuse_servers]
+opensuse-rancher ansible_host=127.0.0.1
+
+[opensuse_servers:vars]
+ansible_python_interpreter=/usr/bin/python3.11
+USER=opensuse
+DISTRO=opensuse
+ansible_user=opensuse
+ubuntu_version=none
+
+[all:vars]
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+become_user=root

@@ -1,0 +1,8 @@
+    - name: main | Install pre-reqs
+      include_tasks: install_prereqs.yml
+
+    - name: Install Docker | Install Docker
+      include_tasks: docker_setup.yml
+    
+    - name: upgrade all packages
+      apt: upgrade=dist force_apt_get=yes
