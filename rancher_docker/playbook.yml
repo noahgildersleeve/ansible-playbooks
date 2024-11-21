@@ -9,20 +9,22 @@
 
   tasks:
     - name: Check for supported OS version
-      fail:
-        msg: "OS must be openSUSE or Ubuntu"
+      ansible.builtin.fail:
+        msg: "OS must be openSUSE, SLES, or Ubuntu"
       when: (ansible_distribution|lower != 'opensuse leap' and
-              ansible_distribution|lower != 'ubuntu')
+              ansible_distribution|lower != 'ubuntu' and
+              ansible_distribution|lower != 'sles')
     - name: Install supported OS
-      include_role:
+      ansible.builtin.include_role:
         name: "{{ DISTRO }}"
 
-    - include_tasks: tasks/docker_setup.yml
+    - name: Docker setup
+      ansible.builtin.include_tasks: tasks/docker_setup.yml
 
 
       # Creates the number of containers defined by the variable create_containers, using values from vars file
     - name: Create default containers
-      docker_container:
+      community.docker.docker_container:
         name: "{{ default_container_name }}{{ item }}"
         env: "{{ env_list }}"
         image: "{{ default_container_image }}"

@@ -1,6 +1,6 @@
 [ubuntu_servers]
-; jammy-rancher ansible_host=127.0.0.1 ubuntu_version=jammy default_container_image=rancher/rancher:v2.9.2
-; focal-rancher ansible_host=127.0.0.1 ubuntu_version=focal
+; jammy-gpu ansible_host=127.0.0.1 ubuntu_version=jammy
+; focal-gpu ansible_host=127.0.0.1 ubuntu_version=focal
 
 [ubuntu_servers:vars]
 USER=ubuntu
@@ -8,7 +8,7 @@ DISTRO=ubuntu
 ansible_user=ubuntu
 
 [opensuse_servers]
-; opensuse-rancher ansible_host=127.0.0.1
+; opensuse-gpu ansible_host=127.0.0.1
 
 [opensuse_servers:vars]
 ansible_python_interpreter=/usr/bin/python3.11
@@ -18,7 +18,7 @@ ansible_user=opensuse
 ubuntu_version=none
 
 [sles_servers]
-; sles-rancher ansible_host=127.0.0.1
+; sles-gpu ansible_host=127.0.0.1
 
 [sles_servers:vars]
 ansible_python_interpreter=/usr/bin/python3.11
@@ -27,9 +27,6 @@ DISTRO=sles
 ansible_user=sles
 ubuntu_version=none
 
-
 [all:vars]
 ansible_ssh_private_key_file=~/.ssh/id_rsa
 become_user=root
-; This sets the Rancher version for everything that isn't specified individually per host
-default_container_image=rancher/rancher:v2.9.3

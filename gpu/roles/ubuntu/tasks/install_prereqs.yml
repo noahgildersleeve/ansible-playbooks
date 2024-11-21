@@ -1,0 +1,34 @@
+- name: Install aptitude using apt
+  ansible.builtin.apt:
+    pkg:
+      - aptitude
+    update_cache: true
+    force_apt_get: true
+
+- name: Install cuda keyring
+  ansible.builtin.apt:
+    deb: "{{  ubuntu_cuda_keyring  }}"
+
+- name: Install required system packages
+  ansible.builtin.apt:
+    pkg:
+      - cuda
+      - nvidia-cuda-toolkit
+      - build-essential
+      - ubuntu-drivers-common
+      - ca-certificates
+    update_cache: true
+
+- name: Autoinstall Ubuntu drivers
+  ansible.builtin.command: ubuntu-drivers autoinstall
+  become: true
+
+- name: Check if reboot required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
+
+
+- name: Reboot if required
+  ansible.builtin.reboot:
+  when: reboot_required_file.stat.exists == true
