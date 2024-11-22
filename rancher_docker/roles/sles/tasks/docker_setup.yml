@@ -3,15 +3,23 @@
     name: docker
     update_cache: true
     state: present
+
 - name: Install pip3
   community.general.zypper:
-    name: python3-pip
+    name: python311-pip
     update_cache: true
     state: present
+
+- name: Install docker Module
+  community.general.zypper:
+    name: python311-docker
+    state: present
+
 - name: Check if reboot required
   ansible.builtin.stat:
     path: /var/run/reboot-required
   register: reboot_required_file
+
 - name: Reboot if required
   ansible.builtin.reboot:
   when: reboot_required_file.stat.exists == true

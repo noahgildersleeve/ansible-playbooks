@@ -1,0 +1,8 @@
+- name: Git checkout
+  ansible.builtin.git:
+    repo: "{{ git_repo }}"
+    dest: 'cuda-examples'
+
+- name: Build the default target
+  make:
+    chdir: "{{  git_project_path  }}"

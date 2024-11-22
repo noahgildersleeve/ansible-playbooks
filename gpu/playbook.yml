@@ -1,0 +1,25 @@
+#################################################
+# DO Community Playbooks: Docker
+#################################################
+---
+- name: All hosts
+  hosts: all
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Check for supported OS version
+      ansible.builtin.fail:
+        msg: "OS must be openSUSE or Ubuntu"
+      when: (ansible_distribution | lower != 'opensuse leap' and
+              ansible_distribution | lower != 'ubuntu' and
+              ansible_distribution | lower != 'sles')
+    - name: Install supported OS
+      ansible.builtin.include_role:
+        name: "{{ DISTRO }}"
+      # This checks that the return code from the cuda sample is 0 which means that it found the gpu
+    - name: Check cuda output
+      ansible.builtin.command: "{{  git_project_path + git_project_bin }}"
+      register: cuda_output
+      failed_when: cuda_output != 0
