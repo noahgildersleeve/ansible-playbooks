@@ -13,7 +13,8 @@
       ansible.builtin.fail:
         msg: "OS must be openSUSE or Ubuntu"
       when: (ansible_distribution | lower != 'opensuse leap' and
-              ansible_distribution | lower != 'ubuntu')
+              ansible_distribution | lower != 'ubuntu' and
+              ansible_distribution | lower != 'sles')
     - name: Install supported OS
       ansible.builtin.include_role:
         name: "{{ DISTRO }}"

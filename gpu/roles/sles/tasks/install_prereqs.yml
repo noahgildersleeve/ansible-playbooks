@@ -1,0 +1,48 @@
+- name: Update all packages
+  community.general.zypper:
+    name: '*'
+    disable_gpg_check: true
+    state: latest
+
+- name: Install git
+  community.general.zypper:
+    name: "git-core"
+    state: present
+
+- name: Install git
+  community.general.zypper:
+    name: "libvdpau1"
+    state: present
+
+- name: Download cuda rpm
+  ansible.builtin.get_url:
+    url: "{{  sles_cuda_installer  }}"
+    dest: /home/sles/cuda.rpm
+
+- name: Install rpm for cuda into zypper
+  community.general.zypper:
+    name: "cuda.rpm"
+    disable_gpg_check: true
+    state: present
+
+- name: Install cuda-toolkit
+  community.general.zypper:
+    name: "{{  sles_cuda_package  }}"
+    update_cache: true
+    disable_gpg_check: true
+    state: present
+
+- name: Install nvidia drivers
+  community.general.zypper:
+    name: "{{  sles_nvidia_drivers  }}"
+    disable_recommends: false
+    state: present
+
+- name: Check if reboot required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
+
+- name: Reboot if required
+  ansible.builtin.reboot:
+  when: reboot_required_file.stat.exists == true

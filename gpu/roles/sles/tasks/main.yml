@@ -1,0 +1,5 @@
+- name: Main | Install pre-reqs
+  ansible.builtin.include_tasks: install_prereqs.yml
+
+- name: Setup GH repo | setup and build the GH repo
+  ansible.builtin.include_tasks: cuda_examples_setup.yml

@@ -17,6 +17,16 @@ DISTRO=opensuse
 ansible_user=opensuse
 ubuntu_version=none
 
+[sles_servers]
+sles-gpu ansible_host=127.0.0.1
+
+[sles_servers:vars]
+ansible_python_interpreter=/usr/bin/python3.11
+USER=sles
+DISTRO=sles
+ansible_user=sles
+ubuntu_version=none
+
 [all:vars]
 ansible_ssh_private_key_file=~/.ssh/id_rsa
 become_user=root
