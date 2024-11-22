@@ -1,5 +1,8 @@
-# ansible-playbooks
-A collection of ansible-playbooks for deploying k8s resources
+# GPU
+
+This is a set of playbooks that allow for deploying the pre-requisites for running cuda code and specifically code from the `cuda-samples` github repo. This will allow you to test GPUs using PCI passthrough as well as vGPU functionality in VMs that have been set up properly either manually or through `cloud-init`.
+
+This is part of the more general ansible_playbooks repo available [here](../README.md)
 
 ## Tested Configurations
 
@@ -81,26 +84,19 @@ There is no specific requirements for Ubuntu Jammy. There is just some condition
 
 There are a few ansible collections required to use the ansible playbooks
 
-### Rancher_docker
-
-Run the following commands to install the associated collections
-
-- `ansible-galaxy collection install community.docker community.general`
-
 ### GPU
 
 Run the following commands to install the associated collections
 
 - `ansible-galaxy collection install community.general`
 
-## Rancher_docker
+## Configuration
 
-This is a set of playbooks that allow for deploying out Rancher in a standalone Docker instance. This installs all of the pre-requisites for Docker, and deploys out the Rancher image based on tag from dockerhub.
+The configuration for this with a combination of the [hosts](./hosts) file and [default.yml](vars/default.yml). In `hosts` you set the operating system of the machines you want to use, as well as any custom usernames or SSH keys. In `default.yml` you set all of the associated config for the `cuda` packages, home directories, and the git repo for the `cuda-samples` project
+
+## Default behavior
+
+The default behavior is to install all of the requirements based on the target OS, install the cuda RPM/Deb, clone the `cuda-samples` code, then run it. The playbook will fail if the code doesn't execute or the GPU isn't found. You can turn off that test in the [default.yml](vars/default.yml) by setting `gpu_test` to `false`.
 
 The full readme is available [here](rancher_docker/README.md) 
 
-## GPU
-
-This is a set of playbooks that allow for deploying the pre-requisites for running cuda code and specifically code from the `cuda-samples` github repo. This will allow you to test GPUs using PCI passthrough as well as vGPU functionality in VMs that have been set up properly either manually or through `cloud-init`.
-
-The full readme is available [here](gpu/README.md) 

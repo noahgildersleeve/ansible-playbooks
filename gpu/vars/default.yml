@@ -11,3 +11,4 @@ sles_home_dir: /home/sles/
 git_repo: https://github.com/nvidia/cuda-samples
 git_project_path: cuda-examples/Samples/3_CUDA_Features/cudaTensorCoreGemm/
 git_project_bin: cudaTensorCoreGemm
+gpu_test: true
