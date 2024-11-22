@@ -4,5 +4,5 @@
     dest: 'cuda-examples'
 
 - name: Build the default target
-  make:
+  community.general.make:
     chdir: "{{  git_project_path  }}"

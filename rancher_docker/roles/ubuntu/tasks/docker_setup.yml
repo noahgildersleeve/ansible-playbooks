@@ -1,27 +1,31 @@
-    - name: Add Docker GPG apt Key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+- name: Add Docker GPG apt Key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
-    - name: Add Docker Repository
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu {{ ubuntu_version }} stable
-        state: present
+- name: Add Docker Repository
+  ansible.builtin.apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu {{ ubuntu_version }} stable
+    state: present
 
-    - name: Update apt and install docker-ce
-      apt: update_cache=yes name=docker-ce state=latest
+- name: Install required system packages
+  ansible.builtin.apt:
+    pkg:
+      - docker-ce
+    state: latest
+    update_cache: true
 
-    - name: "Starting docker service"
-      service:
-        name: "docker"
-        state: started
-        enabled: yes
+- name: "Starting docker service"
+  ansible.builtin.service:
+    name: "docker"
+    state: started
+    enabled: true
 
-    - name: Check if reboot required
-      stat:
-        path: /var/run/reboot-required
-      register: reboot_required_file
+- name: Check if reboot required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
 
-    - name: Reboot if required
-      reboot:
-      when: reboot_required_file.stat.exists == true
+- name: Reboot if required
+  ansible.builtin.reboot:
+  when: reboot_required_file.stat.exists == true
