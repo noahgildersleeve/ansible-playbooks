@@ -21,7 +21,6 @@
       # This checks that the return code from the cuda sample is 0 which means that it found the gpu
     - name: Check cuda output
       ansible.builtin.command: "{{  git_project_path + git_project_bin }}"
-      register: cuda_output
       # This checks if you want to run the gpu_test
       when: gpu_test
       failed_when: cuda_output != 0
