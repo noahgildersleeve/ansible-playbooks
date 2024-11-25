@@ -17,7 +17,7 @@
 - name: Download cuda rpm
   ansible.builtin.get_url:
     url: "{{  sles_cuda_installer  }}"
-    dest: /home/sles/cuda.rpm
+    dest: "{{  sles_home_dir  }}"
 
 - name: Install rpm for cuda into zypper
   community.general.zypper:

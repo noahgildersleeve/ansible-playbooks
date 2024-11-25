@@ -1,5 +1,8 @@
-# ansible-playbooks
-A collection of ansible-playbooks for deploying k8s resources
+# Rancher Docker
+
+This is a ansible playbook that deploys out all of the pre-requisites for Docker and then pulls and deploys Rancher as a single node Docker instance based on an image tag from Docker Hub.
+
+This is part of the more general ansible_playbooks repo available [here](../README.md)
 
 ## Tested Configurations
 
@@ -53,7 +56,7 @@ packages:
 runcmd:
   # This is needed to activate SLES
   - sudo SUSEConnect -r REGCODE -e emailAddress@email.com
-  # This is for the rancher deploy
+  # This is for the rancher_docker deploy
   - sudo SUSEConnect --product sle-module-containers/15.5/x86_64
   - SUSEConnect --product sle-module-public-cloud/15.5/x86_64
   # This is needed for the GPU deployment
@@ -87,20 +90,8 @@ Run the following commands to install the associated collections
 
 - `ansible-galaxy collection install community.docker community.general`
 
-### GPU
+## Configuration
 
-Run the following commands to install the associated collections
+Configuration for this playbook is done mostly in the [hosts](./hosts) file. You can set the hosts there and specify which distro you are running on them. You can also specify the `default_container_image` for all of the hosts in `vars:all` or you can specify a specific one per host and override the default.
 
-- `ansible-galaxy collection install community.general`
-
-## Rancher_docker
-
-This is a set of playbooks that allow for deploying out Rancher in a standalone Docker instance. This installs all of the pre-requisites for Docker, and deploys out the Rancher image based on tag from dockerhub.
-
-The full readme is available [here](rancher_docker/README.md) 
-
-## GPU
-
-This is a set of playbooks that allow for deploying the pre-requisites for running cuda code and specifically code from the `cuda-samples` github repo. This will allow you to test GPUs using PCI passthrough as well as vGPU functionality in VMs that have been set up properly either manually or through `cloud-init`.
-
-The full readme is available [here](gpu/README.md) 
+The other configuration is done with the [default.yml](./vars/default.yml) file. You won't generally have to change this, although you can set the default Rancher password (`CATTLE_BOOTSTRAP_PASSWORD`) there after deploy. It is set by default to `password1234`

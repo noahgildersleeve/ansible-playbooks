@@ -1,7 +1,6 @@
 ---
 create_containers: 1
 default_container_name: rancher
-default_container_image: rancher/rancher:v2.9.3
 exposed_ports:
  - "443"
  - "80"

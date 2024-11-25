@@ -1,10 +1,14 @@
 ubuntu_cuda_keyring: https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-keyring_1.1-1_all.deb
+ubuntu_home_dir: /home/ubuntu/
 opensuse_cuda_installer: https://developer.download.nvidia.com/compute/cuda/12.6.3/local_installers/cuda-repo-opensuse15-12-6-local-12.6.3_560.35.05-1.x86_64.rpm
 opensuse_nvidia_drivers: nvidia-open
 opensuse_cuda_package: cuda-toolkit-12-6
+opensuse_home_dir: /home/opensuse/
 sles_cuda_installer: https://developer.download.nvidia.com/compute/cuda/12.6.3/local_installers/cuda-repo-sles15-12-6-local-12.6.3_560.35.05-1.x86_64.rpm
 sles_nvidia_drivers: nvidia-open
 sles_cuda_package: cuda-toolkit-12-6
+sles_home_dir: /home/sles/
 git_repo: https://github.com/nvidia/cuda-samples
 git_project_path: cuda-examples/Samples/3_CUDA_Features/cudaTensorCoreGemm/
 git_project_bin: cudaTensorCoreGemm
+gpu_test: true
